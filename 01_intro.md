@@ -25,5 +25,5 @@
 * **Environment Parity:** Docker ensures that the environment is identical across development, testing, and production.
 * **Portability:** A container can run on any system that has Docker installed (Mac, Windows, Linux, Cloud).
 * A Docker container shares the host's kernel.
-* **Why is a container faster than a VM?**Because it doesn't have to boot up an entire operating system; it just starts the application process.
+* **Why is a container faster than a VM?** Because it doesn't have to boot up an entire operating system; it just starts the application process.
 * **What is the "Shipping Container" analogy?** Just as a shipping crane moves any box regardless of what's inside, Docker runs any app regardless of the code inside, as long as it's in a container.
