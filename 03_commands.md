@@ -4,8 +4,6 @@ Interaction with Docker happens through the Terminal via the **Docker CLI**. Com
 
 ## Essential Commands
 
-### Image Management
-
 * **docker pull [image]:** Downloads an image from Docker Hub to the local machine without running it.
 * **docker images:** Lists all images currently stored on the local disk. Shows the Repository, Tag, and Image ID.
 
