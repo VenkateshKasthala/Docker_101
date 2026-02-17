@@ -52,4 +52,4 @@ On Mac and Windows, Docker runs inside a small virtual machine. Named Volumes li
 
 #### Safety and Permissions
 
-Docker can manage the permissions (who can read/write) inside a Named Volume much better. With Bind Mounts, you often run into "Permission Denied" errors because your Mac's user account and the Docker container's "root" user are fighting over who owns the file.
+Docker can manage the permissions (who can read/write) inside a Named Volume much better. With Bind Mounts, you often run into "Permission Denied" errors because user's account and the Docker container's "root" user are fighting over who owns the file.
