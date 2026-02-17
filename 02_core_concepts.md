@@ -28,7 +28,7 @@ The active, running instance of an image.
 
 * **Docker Client:** The command-line interface (CLI) used to type commands (e.g., `docker build`).
 * **Docker Daemon (dockerd):** The background service that does the heavy lifting of building, running, and distributing containers.
-* **Registry:** A storage system for images. **Docker Hub** is the largest public registry, allowing users to pull official images for databases, languages, and web servers.
+* **Registry:** A storage system for images. **Docker Hub** is the largest public registry, allowing users to pull official images for databases, languages and web servers.
 
 ## Analogies for Reference
 
@@ -37,3 +37,4 @@ The active, running instance of an image.
 | **Dockerfile** | A blueprint for a house. |
 | **Image** | A standardized construction kit based on the blueprint. |
 | **Container** | The actual house built from the kit where people live.|
+
