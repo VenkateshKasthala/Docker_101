@@ -9,7 +9,7 @@ Docker images are not monolithic blocks. They are a stack of individual **Layers
 
 ## Layered Caching
 
-Docker uses caching to make building images incredibly fast. When I run a build, Docker looks at each instruction and checks its "cache."
+Docker uses caching to make building images incredibly fast. When we run a build, Docker looks at each instruction and checks its "cache."
 
 * **The Chain Reaction:** If a layer hasn't changed (e.g., the `RUN apt-get install` line is the same), Docker reuses the cached version.
 * **Cache Invalidation:** As soon as one layer changes (like updating a line of code in a `COPY` instruction), that layer **and every layer that comes after it** must be rebuilt from scratch.
