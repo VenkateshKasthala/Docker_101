@@ -12,7 +12,7 @@ A plain text file containing a list of instructions on how to assemble an enviro
 
 A read-only, "frozen" file that contains the entire environment.
 
-* Images are **immutable** (they cannot be changed once built).
+* Images are **immutable** (they can't be changed once built).
 * If the code or configuration changes, a new image must be built.
 * Images are stored on the local disk or in a Registry.
 
