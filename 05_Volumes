@@ -1,0 +1,55 @@
+# Volumes
+
+A Volume is a designated folder that lives on your Host machine (your Mac/Laptop) but is "mounted" into the container.
+
+By default, all files created inside a container are stored in the **Writable Layer**.
+This data is:
+
+* **Ephemeral:** It is deleted when the container is removed (`docker rm`).
+* **Hard to get out:** It is difficult for other processes on the host machine to access this data.
+
+**Volumes** solve this by decoupling the storage from the container's lifecycle.
+
+## Named Volumes
+
+Docker creates and manages a directory on the host machine's storage.
+
+* **Management:** Docker handles the file permissions and storage location.
+* **Persistence:** If Container A stops and I start Container B with the same volume, Container B sees all the data from Container A.
+* **Syntax:** `docker run -v my_data:/var/lib/mysql mysql`
+
+## Bind Mounts
+
+A way to map a specific path on the host machine to a path in the container.
+
+* **Direct Access:** I can see and edit the files on my laptop using VS Code, and the container sees the changes immediately.
+* **Development Workflow:** Essential for coding. I mount my source code folder so I don't have to rebuild the image for every small change.
+* **Syntax:** `docker run -v /Users/me/project:/app my_image`
+
+## Key Differences
+
+| Feature | Named Volume | Bind Mount |
+| :--- | :--- | :--- |
+| **Storage Location** | Managed by Docker | Controlled by User |
+| **Ease of Use** | High | Medium (Requires paths) |
+| **Best For** | Databases / Production | Source Code / Development |
+
+### Quick Takeaway
+
+You might be curious just like me about - Why not just use Bind Mounts for everything?
+
+It’s a common thought, but as you scale up, Bind Mounts become a headache for three main reasons:
+
+#### Portability (The "Path" Problem)
+
+If you use a Bind Mount, you have to provide a specific path on your machine, like /Users/venkatesh/data. If you share your project with a teammate who uses Windows or has a different folder structure, your Docker command will fail because that path doesn't exist on their machine.
+
+Named Volumes are portable. You just say "use the db_data volume," and Docker handles the location regardless of whether you're on Mac, Windows, or Linux.
+
+#### Performance
+
+On Mac and Windows, Docker runs inside a small virtual machine. Named Volumes live "inside" that VM's native file system, which is incredibly fast. Bind Mounts have to "reach out" to your Mac's file system, which adds overhead. For a heavy database with thousands of writes per second, a Bind Mount can be significantly slower.
+
+#### Safety and Permissions
+
+Docker can manage the permissions (who can read/write) inside a Named Volume much better. With Bind Mounts, you often run into "Permission Denied" errors because your Mac's user account and the Docker container's "root" user are fighting over who owns the file.

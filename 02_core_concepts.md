@@ -36,5 +36,4 @@ The active, running instance of an image.
 | :--- | :--- |
 | **Dockerfile** | A blueprint for a house. |
 | **Image** | A standardized construction kit based on the blueprint. |
-| **Container** | The actual house built from the kit where people live.|
-
+| **Container** | The actual house built from the kit where people live. |

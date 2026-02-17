@@ -1,0 +1,36 @@
+# Images, Containers, and Layered Caching
+
+## Anatomy of an Image (The Layered Stack)
+
+Docker images are not monolithic blocks. They are a stack of individual **Layers**. Each instruction in a Dockerfile (like `FROM`, `RUN`, `COPY`) creates a new layer on disk.
+
+* **Read-Only:** All layers in an image are immutable. Once they are built, they can never be changed.
+* **Storage Sharing:** If I have 3 images that all start with `FROM python:3.10`, Docker only stores that Python layer once on my hard drive. The three images simply "point" to that same foundation.
+
+## Layered Caching
+
+Docker uses caching to make building images incredibly fast. When I run a build, Docker looks at each instruction and checks its "cache."
+
+* **The Chain Reaction:** If a layer hasn't changed (e.g., the `RUN apt-get install` line is the same), Docker reuses the cached version.
+* **Cache Invalidation:** As soon as one layer changes (like updating a line of code in a `COPY` instruction), that layer **and every layer that comes after it** must be rebuilt from scratch.
+* **Optimization Strategy:** I should put "stable" instructions (like installing OS packages) at the top and "frequent" changes (like copying my code) at the bottom to maximize cache hits.
+
+## Container Strategy (Writable Layer)
+
+When a container is started, Docker does not copy the image. Instead, it places a thin, empty **Writable Layer** on top of the image stack.
+
+* **Unified View:** The container sees all the read-only image layers plus the writable layer as one single file system.
+* **Isolation:** If I run two containers from the same image, they share the same read-only layers but each gets its own private Writable Layer. Changes in Container A are invisible to Container B.
+
+## Copy-on-Write (CoW) Mechanism
+
+This is how Docker handles file edits inside a running container:
+
+1. If a process tries to edit a file that exists in the **Read-Only Image**, Docker immediately **copies** that file up to the **Writable Layer**.
+2. The container then modifies that copy.
+3. The original file in the image is never touched, ensuring the image remains a perfect "source of truth."
+
+## Ephemeral vs. Persistent Data
+
+* **Ephemeral:** Anything saved in the Writable Layer is lost the moment the container is deleted (`docker rm`).
+* **Persistence:** To keep data (like database records or logs) forever, I must use **Volumes** to move data out of the Writable Layer and onto my actual host machine's drive.

@@ -1,0 +1,31 @@
+# Networking and Ports
+
+## Container Isolation
+
+Each Docker container runs in its own isolated network namespace. It has its own IP address, but this IP is usually not reachable directly from the host machine (Mac/Windows).
+
+## Port Mapping (Publishing)
+
+To access a service (like a web server or database) running inside a container, I must map a port on my **Host machine** to a port inside the **Container**.
+
+* **The `-p` Flag:** Used during `docker run`.
+* **Syntax:** `docker run -p <Host_Port>:<Container_Port> <Image>`
+* **Example:** `docker run -p 8080:80 nginx`
+* Traffic to `localhost:8080` on my Mac is redirected to port `80` inside the container.
+
+## Common Scenarios
+
+* **Port Conflicts:** I can run multiple containers that use the same internal port (e.g., two apps using port 5000) as long as I map them to **different** host ports (e.g., `-p 5001:5000` and `-p 5002:5000`).
+
+* **Default Ports:**
+HTTP: 80
+HTTPS: 443
+PostgreSQL: 5432
+MySQL: 3306
+
+## Docker Networks (Internal)
+
+Containers can also talk to *each other* without going through my host machine.
+
+* **Bridge Network:** The default network where containers can communicate using their container names as hostnames.
+* **Benefit:** I can have a "Web" container talk to a "Database" container securely without exposing the database to the entire internet.

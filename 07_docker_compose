@@ -1,0 +1,21 @@
+# Docker Compose
+
+**Docker Compose** is a tool for defining and running multi-container Docker applications. It uses a **YAML** file to configure the application's services, networks, and volumes.
+
+## Key Concepts
+
+* **Services:** In Compose, a "service" is just a fancy name for a container in production. For example, a `db` service and a `web` service.
+* **docker-compose.yml:** The configuration file where all the rules (ports, volumes, environment variables) are written down.
+* **Project Isolation:** Compose keeps different projects separate by prefixing container names with the project folder name.
+
+## Common Commands
+
+* **docker-compose up:** Builds, (re)creates, starts, and attaches to containers for a service.
+* **docker-compose up -d:** Starts the containers in the background (detached).
+* **docker-compose down:** Stops containers and removes containers, networks, and images defined in the file.
+* **docker-compose logs -f:** Follows the logs of all running services in the project.
+
+## Use-Cases
+
+* **Reproducibility:** I can share a single `.yml` file with a teammate, and they can spin up the exact same Database/Spark/Airflow stack I am using.
+* **Service Discovery:** Containers can talk to each other using their service names (e.g., `db`, `cache`) instead of unreliable IP addresses.
